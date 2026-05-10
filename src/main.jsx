@@ -39,10 +39,10 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route path="/" element={<Dashboard />} />
 
             <Route path="/treatments" element={<Treatments />} />
-            <Route path="/treatments/:id" element={<TreatmentDetail />} /> {/* 🔥 ADD */}
+            <Route path="/treatments/:id" element={<TreatmentDetail />} /> 
 
             <Route path="/customers" element={<Customers />} />
-            <Route path="/customers/:id" element={<CustomerDetail />} /> {/* 🔥 ADD */}
+            <Route path="/customers/:id" element={<CustomerDetail />} />
 
             <Route path="/appointments" element={<Appointments />} />
           </Route>
