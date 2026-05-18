@@ -1,65 +1,131 @@
-import { useState } from "react";
-import { useNavigate, Link } from "react-router-dom";
+import { Link } from "react-router-dom";
 
 export default function Login() {
-  const navigate = useNavigate();
-
-  const [email, setEmail] = useState("");
-  const [password, setPassword] = useState("");
-  const [error, setError] = useState("");
-
-  const handleLogin = (e) => {
-    e.preventDefault();
-
-    if (email === "raisya@gmail.com" && password === "12345") {
-      setError("");
-      navigate("/");
-    } else {
-      setError("Email atau password salah!");
-    }
-  };
-
   return (
-    <div>
-      <h2 className="text-2xl font-bold text-slate-700 mb-2">Welcome Back</h2>
-      <p className="text-sm text-slate-400 mb-6">
-        Login untuk masuk ke dashboard GlowCare
-      </p>
+    <div className="w-full max-w-md mx-auto">
 
-      {error && (
-        <div className="mb-4 bg-red-50 border border-red-200 text-red-600 px-4 py-3 rounded-xl text-sm">
-          {error}
-        </div>
-      )}
+      {/* HEADER */}
+      <div className="text-center mb-10">
 
-      <form onSubmit={handleLogin} className="space-y-4">
-        <input
-          type="email"
-          placeholder="Email"
-          className="w-full border border-rose-200 rounded-xl p-3 outline-none focus:ring-2 focus:ring-rose-300"
-          value={email}
-          onChange={(e) => setEmail(e.target.value)}
-        />
+        <h1 className="text-4xl font-bold text-[#344767]">
+          Welcome Back
+        </h1>
 
-        <input
-          type="password"
-          placeholder="Password"
-          className="w-full border border-rose-200 rounded-xl p-3 outline-none focus:ring-2 focus:ring-rose-300"
-          value={password}
-          onChange={(e) => setPassword(e.target.value)}
-        />
+        <p className="text-gray-500 mt-3">
+          Enter your email and password to sign in
+        </p>
+      </div>
 
-        <button className="w-full bg-rose-500 text-white py-3 rounded-xl hover:bg-rose-600 transition">
-          Login
-        </button>
-      </form>
+      {/* FORM */}
+      <div className="bg-white/70 backdrop-blur-xl border border-white/40 rounded-[30px] p-8 shadow-xl">
 
-      <p className="text-sm text-slate-400 mt-6 text-center">
-        Belum punya akun?{" "}
-        <Link to="/register" className="text-rose-500 font-semibold">
-          Register
-        </Link>
-      </p>
+        <form className="space-y-6">
+
+          {/* EMAIL */}
+          <div>
+
+            <label className="block text-sm font-semibold text-[#344767] mb-2">
+              Email
+            </label>
+
+            <input
+              type="email"
+              placeholder="Your email"
+              className="
+                w-full
+                px-5
+                py-4
+                rounded-2xl
+                bg-white
+                border
+                border-gray-200
+                outline-none
+                focus:border-pink-400
+                focus:ring-4
+                focus:ring-pink-100
+                transition
+              "
+            />
+          </div>
+
+          {/* PASSWORD */}
+          <div>
+
+            <label className="block text-sm font-semibold text-[#344767] mb-2">
+              Password
+            </label>
+
+            <input
+              type="password"
+              placeholder="Your password"
+              className="
+                w-full
+                px-5
+                py-4
+                rounded-2xl
+                bg-white
+                border
+                border-gray-200
+                outline-none
+                focus:border-pink-400
+                focus:ring-4
+                focus:ring-pink-100
+                transition
+              "
+            />
+          </div>
+
+          {/* REMEMBER */}
+          <div className="flex items-center justify-between">
+
+            <label className="flex items-center gap-2 text-sm text-gray-500">
+
+              <input type="checkbox" />
+
+              Remember me
+            </label>
+
+            <button
+              type="button"
+              className="text-sm text-pink-500 font-medium"
+            >
+              Forgot Password?
+            </button>
+          </div>
+
+          {/* BUTTON */}
+          <button
+            className="
+              w-full
+              py-4
+              rounded-2xl
+              bg-gradient-to-r
+              from-pink-500
+              to-purple-600
+              text-white
+              font-semibold
+              shadow-lg
+              hover:scale-[1.02]
+              transition
+            "
+          >
+            Sign In
+          </button>
+        </form>
+
+        {/* FOOTER */}
+        <p className="text-center text-sm text-gray-500 mt-8">
+
+          Don't have an account?
+
+          <Link
+            to="/register"
+            className="text-pink-500 font-semibold ml-1"
+          >
+            Sign Up
+          </Link>
+        </p>
+      </div>
     </div>
   );
 }

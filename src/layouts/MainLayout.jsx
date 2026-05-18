@@ -4,16 +4,19 @@ import Header from "../components/Header";
 
 export default function MainLayout() {
   return (
-    <div className="min-h-screen bg-gradient-to-br from-rose-50 via-pink-50 to-orange-50 flex font-sans text-slate-700">
+    <div className="bg-[#f8f9fa] min-h-screen">
+
       <Sidebar />
 
-      <main className="flex-1 flex flex-col min-w-0">
+      <div className="ml-[270px] p-6">
+
         <Header />
 
-        <section className="p-6 lg:p-8">
+        <div className="mt-6">
           <Outlet />
-        </section>
-      </main>
+        </div>
+
+      </div>
     </div>
   );
 }

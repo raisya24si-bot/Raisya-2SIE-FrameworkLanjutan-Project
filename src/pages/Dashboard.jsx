@@ -1,23 +1,352 @@
-import { Users, Sparkles, CalendarDays, Wallet } from "lucide-react";
-import StatCard from "../components/StatCard";
+import {
+  Wallet,
+  Users,
+  Calendar,
+  Sparkles,
+} from "lucide-react";
+
+const stats = [
+  {
+    title: "Today's Revenue",
+    value: "$3,240",
+    growth: "+12%",
+    icon: <Wallet size={18} />,
+  },
+
+  {
+    title: "Customers",
+    value: "1,240",
+    growth: "+8%",
+    icon: <Users size={18} />,
+  },
+
+  {
+    title: "Appointments",
+    value: "58",
+    growth: "+15%",
+    icon: <Calendar size={18} />,
+  },
+
+  {
+    title: "Treatments",
+    value: "142",
+    growth: "+20%",
+    icon: <Sparkles size={18} />,
+  },
+];
 
 export default function Dashboard() {
   return (
-    <div className="space-y-8">
-      <div className="rounded-3xl bg-gradient-to-r from-rose-500 to-pink-500 p-8 text-white shadow-xl shadow-rose-200">
-        <p className="text-sm text-white/80 mb-2">Welcome back, Admin</p>
-        <h1 className="text-3xl font-extrabold">GlowCare Beauty Clinic</h1>
-        <p className="text-white/80 mt-2 max-w-2xl">
-          Kelola treatment, customer, dan appointment klinik kecantikan dengan tampilan yang soft dan modern.
-        </p>
+    <div className="space-y-6">
+
+      {/* STATISTIC */}
+      <div className="grid grid-cols-4 gap-5">
+
+        {stats.map((item, index) => (
+          <div
+            key={index}
+            className="bg-white rounded-2xl px-5 py-4 shadow-sm flex items-center justify-between"
+          >
+            <div>
+              <p className="text-gray-400 text-sm">
+                {item.title}
+              </p>
+
+              <h2 className="text-[28px] font-bold text-[#344767] mt-1">
+                {item.value}
+              </h2>
+
+              <p className="text-green-500 text-sm font-semibold mt-1">
+                {item.growth}
+              </p>
+            </div>
+
+            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center text-white shadow-lg">
+              {item.icon}
+            </div>
+          </div>
+        ))}
       </div>
 
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-6">
-        <StatCard title="Total Customers" value="120" icon={<Users size={24} />} description="Pelanggan aktif GlowCare" />
-        <StatCard title="Total Treatments" value="25" icon={<Sparkles size={24} />} description="Layanan perawatan tersedia" />
-        <StatCard title="Appointments Today" value="8" icon={<CalendarDays size={24} />} description="Booking hari ini" />
-        <StatCard title="Monthly Revenue" value="Rp 12.5jt" icon={<Wallet size={24} />} description="Pendapatan bulan ini" />
+      {/* HERO SECTION */}
+      <div className="grid grid-cols-3 gap-5">
+
+        {/* LEFT CARD */}
+        <div className="bg-white rounded-2xl p-6 shadow-sm">
+
+          <p className="text-gray-400 text-sm">
+            Built by developers
+          </p>
+
+          <h2 className="text-2xl font-bold text-[#344767] mt-2">
+            GlowCare Dashboard
+          </h2>
+
+          <p className="text-gray-400 mt-3 leading-relaxed">
+            Modern beauty clinic dashboard for customer,
+            treatment, appointment, and transaction
+            management.
+          </p>
+
+          <button className="mt-8 text-sm font-semibold text-[#344767]">
+            Read More →
+          </button>
+        </div>
+
+        {/* MIDDLE IMAGE */}
+        <div className="rounded-2xl overflow-hidden shadow-sm h-[220px]">
+
+          <img
+            src="/img/foto1.jpg"
+            alt="GlowCare"
+            className="w-full h-full object-cover"
+          />
+        </div>
+
+        {/* RIGHT CARD */}
+        <div
+          className="rounded-2xl p-6 shadow-sm bg-cover bg-center relative overflow-hidden"
+          style={{
+            backgroundImage:
+              "url('/img/foto1.jpg')",
+          }}
+        >
+          <div className="absolute inset-0 bg-black/50"></div>
+
+          <div className="relative z-10 text-white h-full flex flex-col justify-between">
+
+            <div>
+              <h2 className="text-2xl font-bold">
+                Beauty Treatment
+              </h2>
+
+              <p className="mt-3 text-sm leading-relaxed text-gray-200">
+                GlowCare provides premium skincare and
+                facial treatment experience for every
+                customer.
+              </p>
+            </div>
+
+            <button className="text-sm font-semibold">
+              Read More →
+            </button>
+          </div>
+        </div>
+      </div>
+
+      {/* CHART SECTION */}
+      <div className="grid grid-cols-3 gap-5">
+
+        {/* APPOINTMENT STATUS */}
+        <div className="bg-white rounded-2xl p-5 shadow-sm">
+
+          {/* BAR CHART */}
+          <div className="bg-[#1f2b5b] rounded-2xl h-[220px] px-6 py-5 flex items-end justify-between">
+
+            {/* BAR 1 */}
+            <div className="flex flex-col items-center gap-2">
+              <div className="w-8 h-[140px] bg-pink-500 rounded-full"></div>
+
+              <span className="text-white text-xs">
+                Selesai
+              </span>
+            </div>
+
+            {/* BAR 2 */}
+            <div className="flex flex-col items-center gap-2">
+              <div className="w-8 h-[90px] bg-purple-400 rounded-full"></div>
+
+              <span className="text-white text-xs">
+                Dijadwalkan
+              </span>
+            </div>
+
+            {/* BAR 3 */}
+            <div className="flex flex-col items-center gap-2">
+              <div className="w-8 h-[50px] bg-red-400 rounded-full"></div>
+
+              <span className="text-white text-xs">
+                Dibatalkan
+              </span>
+            </div>
+          </div>
+
+          {/* TITLE */}
+          <div className="mt-5">
+            <h3 className="font-bold text-[#344767] text-lg">
+              Status Janji Temu
+            </h3>
+
+            <p className="text-sm text-gray-400 mt-1">
+              Statistik status appointment dalam 7 hari terakhir
+            </p>
+          </div>
+
+          {/* MINI STATS */}
+          <div className="grid grid-cols-2 gap-4 mt-6">
+
+            <div>
+              <p className="text-xs text-gray-400">
+                Total Pasien
+              </p>
+
+              <h4 className="text-xl font-bold text-[#344767] mt-1">
+                1,240
+              </h4>
+            </div>
+
+            <div>
+              <p className="text-xs text-gray-400">
+                Janji Temu Hari Ini
+              </p>
+
+              <h4 className="text-xl font-bold text-[#344767] mt-1">
+                58
+              </h4>
+            </div>
+
+            <div>
+              <p className="text-xs text-gray-400">
+                Tingkat Kehadiran
+              </p>
+
+              <h4 className="text-xl font-bold text-green-500 mt-1">
+                92%
+              </h4>
+            </div>
+
+            <div>
+              <p className="text-xs text-gray-400">
+                Pasien Baru Bulan Ini
+              </p>
+
+              <h4 className="text-xl font-bold text-pink-500 mt-1">
+                86
+              </h4>
+            </div>
+          </div>
+        </div>
+
+{/* VISIT TREND */}
+<div className="col-span-2 bg-white rounded-2xl p-6 shadow-sm">
+
+  {/* HEADER */}
+  <div className="flex items-start justify-between">
+
+    <div>
+      <h3 className="font-bold text-[#344767] text-lg">
+        Tren Kunjungan Pasien
+      </h3>
+
+      <p className="text-sm text-green-500 mt-1">
+        ↑ 18% lebih ramai dibanding tahun lalu
+      </p>
+    </div>
+
+    <div className="text-right">
+      <p className="text-xs text-gray-400">
+        Total Appointment
+      </p>
+
+      <h4 className="text-2xl font-bold text-[#344767]">
+        12,480
+      </h4>
+    </div>
+  </div>
+
+  {/* CHART */}
+  <div className="mt-8">
+
+    <div className="relative h-[320px]">
+
+      {/* GRID */}
+      <div className="absolute inset-0 flex flex-col justify-between">
+
+        <div className="border-t border-dashed border-gray-200"></div>
+        <div className="border-t border-dashed border-gray-200"></div>
+        <div className="border-t border-dashed border-gray-200"></div>
+        <div className="border-t border-dashed border-gray-200"></div>
+        <div className="border-t border-dashed border-gray-200"></div>
+
+      </div>
+
+      {/* LEFT SCALE */}
+      <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-gray-400">
+
+        <span>500</span>
+        <span>400</span>
+        <span>300</span>
+        <span>200</span>
+        <span>100</span>
+        <span>0</span>
+
+      </div>
+
+      {/* SVG CHART */}
+      <div className="ml-10 h-full relative">
+
+        <svg
+          className="absolute inset-0 w-full h-full"
+          viewBox="0 0 1000 320"
+          preserveAspectRatio="none"
+        >
+
+          {/* PINK LINE */}
+          <path
+            d="
+              M0 260
+              C80 250, 120 170, 180 180
+              S300 280, 380 130
+              S500 120, 580 170
+              S700 240, 780 150
+              S900 230, 1000 80
+            "
+            fill="none"
+            stroke="#cb0c9f"
+            strokeWidth="4"
+            strokeLinecap="round"
+          />
+
+          {/* DARK LINE */}
+          <path
+            d="
+              M0 280
+              C100 240, 160 210, 220 230
+              S350 300, 430 220
+              S600 180, 680 240
+              S850 310, 1000 130
+            "
+            fill="none"
+            stroke="#344767"
+            strokeWidth="4"
+            strokeLinecap="round"
+          />
+
+        </svg>
+
+        {/* MONTHS */}
+        <div className="absolute bottom-0 left-0 right-0 flex justify-between text-xs text-gray-400 pt-4">
+
+          <span>Jan</span>
+          <span>Feb</span>
+          <span>Mar</span>
+          <span>Apr</span>
+          <span>Mei</span>
+          <span>Jun</span>
+          <span>Jul</span>
+          <span>Agu</span>
+          <span>Sep</span>
+          <span>Okt</span>
+          <span>Nov</span>
+          <span>Des</span>
+
+        </div>
       </div>
     </div>
+  </div>
+</div>
+
+</div>
+</div>
   );
 }

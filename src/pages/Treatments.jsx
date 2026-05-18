@@ -11,54 +11,100 @@ export default function Treatments() {
   );
 
   return (
-    <div>
+    <div className="space-y-6">
+
       <PageHeader
         title="Treatments"
         subtitle="Daftar layanan perawatan di GlowCare Clinic"
       />
 
-      <div className="bg-white rounded-2xl border border-rose-100 p-5 shadow-sm">
-        <input
-          type="text"
-          placeholder="Cari treatment..."
-          className="w-full md:w-80 mb-5 border border-rose-200 rounded-xl px-4 py-3 outline-none focus:ring-2 focus:ring-rose-300"
-          value={search}
-          onChange={(e) => setSearch(e.target.value)}
-        />
+      <div className="bg-white rounded-[28px] p-6 shadow-sm">
 
+        {/* SEARCH */}
+        <div className="mb-6">
+
+          <input
+            type="text"
+            placeholder="Search treatment..."
+            className="
+              w-full
+              md:w-[320px]
+              h-[48px]
+              px-5
+              rounded-2xl
+              border
+              border-[#e9ecef]
+              bg-white
+              text-sm
+              outline-none
+              transition
+              focus:border-pink-400
+              focus:ring-4
+              focus:ring-pink-100
+            "
+            value={search}
+            onChange={(e) => setSearch(e.target.value)}
+          />
+        </div>
+
+        {/* TABLE */}
         <div className="overflow-x-auto">
-          <table className="w-full text-left">
-            <thead className="bg-rose-50 text-slate-600">
-              <tr>
-                <th className="p-4">Nama Treatment</th>
-                <th className="p-4">Kategori</th>
-                <th className="p-4">Harga</th>
-                <th className="p-4">Durasi</th>
+
+          <table className="w-full">
+
+            <thead>
+              <tr className="border-b border-[#f1f3f5]">
+
+                <th className="text-left text-xs font-bold tracking-wider text-gray-400 uppercase px-4 pb-4">
+                  Nama Treatment
+                </th>
+
+                <th className="text-left text-xs font-bold tracking-wider text-gray-400 uppercase px-4 pb-4">
+                  Kategori
+                </th>
+
+                <th className="text-left text-xs font-bold tracking-wider text-gray-400 uppercase px-4 pb-4">
+                  Harga
+                </th>
+
+                <th className="text-left text-xs font-bold tracking-wider text-gray-400 uppercase px-4 pb-4">
+                  Durasi
+                </th>
               </tr>
             </thead>
 
             <tbody>
+
               {filteredTreatments.map((item) => (
                 <tr
                   key={item.id}
-                  className="border-t border-rose-100"
+                  className="border-b border-[#f8f9fa] hover:bg-[#f8f9fa] transition"
                 >
-                  <td className="p-4 font-medium">
+
+                  <td className="px-4 py-5">
+
                     <Link
                       to={`/treatments/${item.id}`}
-                      className="text-rose-500 hover:underline"
+                      className="font-semibold text-[#344767] hover:text-pink-500 transition"
                     >
                       {item.name}
                     </Link>
                   </td>
 
-                  <td className="p-4">{item.category}</td>
-
-                  <td className="p-4 text-rose-500 font-semibold">
-                    Rp {item.price.toLocaleString("id-ID")}
+                  <td className="px-4 py-5 text-sm text-gray-500">
+                    {item.category}
                   </td>
 
-                  <td className="p-4">{item.duration}</td>
+                  <td className="px-4 py-5">
+
+                    <span className="font-bold text-pink-500">
+                      Rp {item.price.toLocaleString("id-ID")}
+                    </span>
+                  </td>
+
+                  <td className="px-4 py-5 text-sm text-gray-500">
+                    {item.duration}
+                  </td>
                 </tr>
               ))}
             </tbody>
@@ -66,7 +112,7 @@ export default function Treatments() {
         </div>
 
         {filteredTreatments.length === 0 && (
-          <p className="text-center text-slate-400 py-6">
+          <p className="text-center text-gray-400 py-10">
             Treatment tidak ditemukan.
           </p>
         )}
