@@ -28,6 +28,7 @@ const Register = lazy(() => import("./pages/auth/Register"));
 // Error Page
 const ErrorPage = lazy(() => import("./components/ErrorPage"));
 
+const Components = lazy(() => import("./pages/Components"));
 ReactDOM.createRoot(document.getElementById("root")).render(
   <React.StrictMode>
     <BrowserRouter>
@@ -45,6 +46,7 @@ ReactDOM.createRoot(document.getElementById("root")).render(
             <Route path="/customers/:id" element={<CustomerDetail />} />
 
             <Route path="/appointments" element={<Appointments />} />
+            <Route path="/components" element={<Components />} />
           </Route>
 
           {/* AUTH LAYOUT */}
