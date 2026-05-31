@@ -26,6 +26,8 @@ const Register = React.lazy(() => import("./pages/auth/Register"));
 const Forgot = React.lazy(() => import("./pages/auth/Forgot"));
 const Components = lazy(() => import("./pages/Components"));
 
+const Transactions = React.lazy(() => import("./pages/Transactions"));
+
 function App() {
   return (
     <Suspense fallback={<div>Loading...</div>}>
@@ -42,6 +44,11 @@ function App() {
           <Route
             path="/customers"
             element={<Customers />}
+          />
+
+          <Route
+            path="/transactions"
+            element={<Transactions />} 
           />
 
           <Route

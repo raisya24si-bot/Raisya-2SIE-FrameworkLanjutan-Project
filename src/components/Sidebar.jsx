@@ -32,6 +32,12 @@ const menus = [
     name: "Appointments",
     icon: Calendar,
     path: "/appointments",
+  },
+
+   {
+    name: "Transactions",
+    icon: Calendar,
+    path: "/transactions",
   }
 
 ];

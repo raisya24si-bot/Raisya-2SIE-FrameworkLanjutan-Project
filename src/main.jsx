@@ -16,6 +16,7 @@ const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Treatments = lazy(() => import("./pages/Treatments"));
 const Customers = lazy(() => import("./pages/Customers"));
 const Appointments = lazy(() => import("./pages/Appointments"));
+const Transactions = lazy(() => import("./pages/Transactions"));
 
 // 🔥 DETAIL PAGES
 const CustomerDetail = lazy(() => import("./pages/CustomerDetail"));
@@ -47,6 +48,8 @@ ReactDOM.createRoot(document.getElementById("root")).render(
 
             <Route path="/appointments" element={<Appointments />} />
             <Route path="/components" element={<Components />} />
+
+            <Route path="/transactions" element={<Transactions />} />
           </Route>
 
           {/* AUTH LAYOUT */}
