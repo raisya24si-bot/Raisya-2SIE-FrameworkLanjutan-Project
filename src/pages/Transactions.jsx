@@ -11,12 +11,30 @@ import {
 import transactions from "../data/transactions";
 import PageHeader from "../components/PageHeader";
 
+import {
+  Select,
+  SelectContent,
+  SelectGroup,
+  SelectItem,
+  SelectTrigger,
+  SelectValue,
+} from "@/components/ui/select";
+
 export default function Transactions() {
   const [search, setSearch] = useState("");
+  const [statusFilter, setStatusFilter] = useState("All");
 
-  const filteredTransactions = transactions.filter((item) =>
-    item.customerName.toLowerCase().includes(search.toLowerCase())
-  );
+  const filteredTransactions = transactions.filter((item) => {
+    const matchSearch = item.customerName
+      .toLowerCase()
+      .includes(search.toLowerCase());
+
+    if (statusFilter === "All") {
+      return matchSearch;
+    }
+
+    return matchSearch && item.status === statusFilter;
+  });
 
   const getStatusColor = (status) => {
     if (status === "Paid") {
@@ -39,37 +57,55 @@ export default function Transactions() {
 
       <div className="bg-white rounded-[28px] p-6 shadow-sm">
         {/* TOP BAR */}
-        <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
-          {/* SEARCH */}
-          <div className="relative">
-            <Search
-              size={18}
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
-            />
+        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
+          <div className="flex flex-col md:flex-row gap-4">
+            {/* SEARCH */}
+            <div className="relative">
+              <Search
+                size={18}
+                className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+              />
 
-            <input
-              type="text"
-              placeholder="Search transaction..."
-              value={search}
-              onChange={(e) => setSearch(e.target.value)}
-              className="
-                w-full
-                md:w-[320px]
-                h-[48px]
-                pl-11
-                pr-5
-                rounded-2xl
-                border
-                border-[#e9ecef]
-                bg-white
-                text-sm
-                outline-none
-                transition
-                focus:border-pink-400
-                focus:ring-4
-                focus:ring-pink-100
-              "
-            />
+              <input
+                type="text"
+                placeholder="Search transaction..."
+                value={search}
+                onChange={(e) => setSearch(e.target.value)}
+                className="
+                  w-full
+                  md:w-[320px]
+                  h-[48px]
+                  pl-11
+                  pr-5
+                  rounded-2xl
+                  border
+                  border-[#e9ecef]
+                  bg-white
+                  text-sm
+                  outline-none
+                  transition
+                  focus:border-pink-400
+                  focus:ring-4
+                  focus:ring-pink-100
+                "
+              />
+            </div>
+
+            {/* SELECT */}
+            <Select value={statusFilter} onValueChange={setStatusFilter}>
+              <SelectTrigger className="w-full md:w-[190px] h-[48px] rounded-2xl border-[#e9ecef] text-sm">
+                <SelectValue placeholder="Filter Status" />
+              </SelectTrigger>
+
+              <SelectContent>
+                <SelectGroup>
+                  <SelectItem value="All">All Status</SelectItem>
+                  <SelectItem value="Paid">Paid</SelectItem>
+                  <SelectItem value="Pending">Pending</SelectItem>
+                  <SelectItem value="Failed">Failed</SelectItem>
+                </SelectGroup>
+              </SelectContent>
+            </Select>
           </div>
 
           {/* BUTTON */}
@@ -95,7 +131,7 @@ export default function Transactions() {
 
         {/* TABLE */}
         <div className="overflow-x-auto">
-          <table className="w-full">
+          <table className="w-full min-w-[1000px]">
             <thead>
               <tr className="border-b border-[#f1f3f5]">
                 <th className="text-left text-xs font-bold tracking-wider text-gray-400 uppercase px-4 pb-4">

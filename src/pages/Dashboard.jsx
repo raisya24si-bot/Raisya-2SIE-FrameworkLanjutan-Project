@@ -3,7 +3,17 @@ import {
   Users,
   Calendar,
   Sparkles,
+  Info,
 } from "lucide-react";
+
+import {
+  Alert,
+  AlertAction,
+  AlertDescription,
+  AlertTitle,
+} from "@/components/ui/alert";
+
+import { Button } from "@/components/ui/button";
 
 const stats = [
   {
@@ -35,6 +45,29 @@ const stats = [
 export default function Dashboard() {
   return (
     <div className="space-y-6">
+      {/* ALERT */}
+      <Alert className="bg-pink-50 border-pink-200 text-[#344767] rounded-2xl shadow-sm">
+        <Info className="h-5 w-5 text-pink-500" />
+
+        <AlertTitle className="font-bold text-[#344767]">
+          Informasi Appointment Hari Ini
+        </AlertTitle>
+
+        <AlertDescription className="text-gray-500">
+          Terdapat 58 janji temu hari ini. Pastikan data customer dan jadwal
+          treatment sudah dikonfirmasi sebelum pelayanan dimulai.
+        </AlertDescription>
+
+        <AlertAction>
+          <Button
+            variant="outline"
+            className="rounded-xl border-pink-300 text-pink-600 hover:bg-pink-100"
+          >
+            Lihat Jadwal
+          </Button>
+        </AlertAction>
+      </Alert>
+
       {/* STATISTIC */}
       <div className="grid grid-cols-4 gap-5">
         {stats.map((item, index) => (
