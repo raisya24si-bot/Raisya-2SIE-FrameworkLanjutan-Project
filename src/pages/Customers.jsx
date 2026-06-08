@@ -1,12 +1,17 @@
-import { useState } from "react";
+
 import { Link } from "react-router-dom";
 import { Search } from "lucide-react";
-
 import customers from "../data/customers";
 import PageHeader from "../components/PageHeader";
-
+import { useState, useEffect, useRef } from "react";
 export default function Customers() {
   const [search, setSearch] = useState("");
+  const searchRef = useRef(null);
+
+  useEffect(() => {
+    document.title = "GlowCare Clinic - Customers";
+    searchRef.current.focus();
+  }, []);
 
   const filteredCustomers = customers.filter((item) =>
     item.name.toLowerCase().includes(search.toLowerCase())
@@ -36,7 +41,6 @@ export default function Customers() {
       <div className="bg-white rounded-[28px] p-6 shadow-sm">
         {/* TOP BAR */}
         <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
-          
           {/* SEARCH */}
           <div className="relative">
             <Search
@@ -45,6 +49,7 @@ export default function Customers() {
             />
 
             <input
+              ref={searchRef}
               type="text"
               placeholder="Search customer..."
               value={search}
@@ -131,7 +136,6 @@ export default function Customers() {
                   {/* CUSTOMER */}
                   <td className="px-4 py-5">
                     <div className="flex items-center gap-4">
-                      
                       {/* AVATAR */}
                       <div
                         className="

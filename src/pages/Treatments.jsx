@@ -1,13 +1,16 @@
 import { useState } from "react";
 import { Link } from "react-router-dom";
 import { Search, Sparkles, Clock, Tag } from "lucide-react";
-
 import treatments from "../data/treatments";
 import PageHeader from "../components/PageHeader";
 
+import { useEffect } from "react";
 export default function Treatments() {
-  const [search, setSearch] = useState("");
+  useEffect(() => {
+    document.title = "GlowCare Clinic - Treatments";
+  }, []);
 
+  const [search, setSearch] = useState("");
   const filteredTreatments = treatments.filter((item) =>
     item.name.toLowerCase().includes(search.toLowerCase())
   );

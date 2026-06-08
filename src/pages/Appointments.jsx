@@ -3,7 +3,7 @@ import { Search, Calendar, Clock, User, Sparkles } from "lucide-react";
 
 import appointments from "../data/appointments";
 import PageHeader from "../components/PageHeader";
-
+import { useEffect } from "react";
 import {
   Tabs,
   TabsContent,
@@ -12,6 +12,10 @@ import {
 } from "@/components/ui/tabs";
 
 export default function Appointments() {
+  useEffect(() => {
+    document.title = "GlowCare Clinic - Appointments";
+  }, []);
+  
   const [search, setSearch] = useState("");
 
   const getStatusColor = (status) => {

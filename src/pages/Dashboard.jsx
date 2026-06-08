@@ -1,9 +1,16 @@
+import { useEffect } from "react";
+
 import {
   Wallet,
   Users,
   Calendar,
   Sparkles,
   Info,
+  TrendingUp,
+  Star,
+  CheckCircle,
+  Clock,
+  XCircle,
 } from "lucide-react";
 
 import {
@@ -42,7 +49,19 @@ const stats = [
   },
 ];
 
+const topTreatments = [
+  { name: "Facial Glow", total: 120, height: 150 },
+  { name: "Acne", total: 95, height: 120 },
+  { name: "Peeling", total: 70, height: 90 },
+  { name: "Laser", total: 55, height: 65 },
+  { name: "Brightening", total: 80, height: 105 },
+];
+
 export default function Dashboard() {
+  useEffect(() => {
+    document.title = "GlowCare Clinic - Dashboard";
+  }, []);
+
   return (
     <div className="space-y-6">
       {/* ALERT */}
@@ -68,20 +87,18 @@ export default function Dashboard() {
         </AlertAction>
       </Alert>
 
-      {/* STATISTIC */}
-      <div className="grid grid-cols-4 gap-5">
+      {/* STATS */}
+      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
         {stats.map((item, index) => (
           <div
             key={index}
-            className="bg-white rounded-2xl px-5 py-4 shadow-sm flex items-center justify-between"
+            className="bg-white rounded-2xl p-5 shadow-sm flex items-center justify-between"
           >
             <div>
               <p className="text-gray-400 text-sm">{item.title}</p>
-
-              <h2 className="text-[28px] font-bold text-[#344767] mt-1">
+              <h2 className="text-2xl font-bold text-[#344767] mt-1">
                 {item.value}
               </h2>
-
               <p className="text-green-500 text-sm font-semibold mt-1">
                 {item.growth}
               </p>
@@ -94,48 +111,48 @@ export default function Dashboard() {
         ))}
       </div>
 
-      {/* HERO SECTION */}
-      <div className="grid grid-cols-3 gap-5">
-        <div className="bg-white rounded-2xl p-6 shadow-sm">
-          <p className="text-gray-400 text-sm">Built by developers</p>
+      {/* HERO */}
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-5">
+        <div className="bg-white rounded-2xl p-6 shadow-sm xl:col-span-2 flex flex-col md:flex-row items-center justify-between gap-6">
+          <div>
+            <p className="text-gray-400 text-sm">Built by developers</p>
 
-          <h2 className="text-2xl font-bold text-[#344767] mt-2">
-            GlowCare Dashboard
-          </h2>
+            <h2 className="text-2xl font-bold text-[#344767] mt-2">
+              GlowCare Dashboard
+            </h2>
 
-          <p className="text-gray-400 mt-3 leading-relaxed">
-            Modern beauty clinic dashboard for customer, treatment,
-            appointment, and transaction management.
-          </p>
+            <p className="text-gray-400 mt-3 leading-relaxed max-w-md">
+              Sistem dashboard modern untuk mengelola customer, treatment,
+              appointment, dan transaksi pada klinik kecantikan GlowCare.
+            </p>
 
-          <button className="mt-8 text-sm font-semibold text-[#344767]">
-            Read More →
-          </button>
-        </div>
+            <button className="mt-8 text-sm font-semibold text-[#344767]">
+              Read More →
+            </button>
+          </div>
 
-        <div className="rounded-2xl overflow-hidden shadow-sm h-[220px]">
-          <img
-            src="/img/foto1.jpg"
-            alt="GlowCare"
-            className="w-full h-full object-cover"
-          />
+          <div className="w-full md:w-[300px] h-[190px] rounded-2xl overflow-hidden">
+            <img
+              src="/img/foto1.jpg"
+              alt="GlowCare"
+              className="w-full h-full object-cover"
+            />
+          </div>
         </div>
 
         <div
-          className="rounded-2xl p-6 shadow-sm bg-cover bg-center relative overflow-hidden"
-          style={{
-            backgroundImage: "url('/img/foto1.jpg')",
-          }}
+          className="rounded-2xl p-6 shadow-sm bg-cover bg-center relative overflow-hidden min-h-[250px]"
+          style={{ backgroundImage: "url('/img/foto1.jpg')" }}
         >
-          <div className="absolute inset-0 bg-black/50"></div>
+          <div className="absolute inset-0 bg-[#1f2b5b]/70"></div>
 
           <div className="relative z-10 text-white h-full flex flex-col justify-between">
             <div>
               <h2 className="text-2xl font-bold">Beauty Treatment</h2>
 
               <p className="mt-3 text-sm leading-relaxed text-gray-200">
-                GlowCare provides premium skincare and facial treatment
-                experience for every customer.
+                GlowCare memberikan pengalaman treatment wajah dan skincare
+                premium untuk setiap customer.
               </p>
             </div>
 
@@ -144,64 +161,78 @@ export default function Dashboard() {
         </div>
       </div>
 
-      {/* CHART SECTION */}
-      <div className="grid grid-cols-3 gap-5">
-        {/* APPOINTMENT STATUS */}
-        <div className="bg-white rounded-2xl p-5 shadow-sm">
-          <div className="bg-[#1f2b5b] rounded-2xl h-[220px] px-6 py-5 flex items-end justify-between">
-            <div className="flex flex-col items-center gap-2">
-              <div className="w-8 h-[140px] bg-pink-500 rounded-full"></div>
-              <span className="text-white text-xs">Selesai</span>
-            </div>
+      {/* CHART AREA */}
+      <div className="grid grid-cols-1 xl:grid-cols-3 gap-5">
+        {/* TOP TREATMENT */}
+        <div className="bg-white rounded-2xl p-6 shadow-sm">
+          <div className="bg-[#1f2b5b] rounded-2xl h-[230px] px-6 py-5 flex items-end justify-between">
+            {topTreatments.map((item, index) => (
+              <div key={index} className="flex flex-col items-center gap-2">
+                <span className="text-white text-xs font-semibold">
+                  {item.total}
+                </span>
 
-            <div className="flex flex-col items-center gap-2">
-              <div className="w-8 h-[90px] bg-purple-400 rounded-full"></div>
-              <span className="text-white text-xs">Dijadwalkan</span>
-            </div>
+                <div
+                  className="w-5 rounded-full bg-gradient-to-t from-pink-500 to-purple-400"
+                  style={{ height: `${item.height}px` }}
+                ></div>
 
-            <div className="flex flex-col items-center gap-2">
-              <div className="w-8 h-[50px] bg-red-400 rounded-full"></div>
-              <span className="text-white text-xs">Dibatalkan</span>
-            </div>
+                <span className="text-white text-[10px] text-center">
+                  {item.name}
+                </span>
+              </div>
+            ))}
           </div>
 
           <div className="mt-5">
             <h3 className="font-bold text-[#344767] text-lg">
-              Status Janji Temu
+              Treatment Terpopuler
             </h3>
 
             <p className="text-sm text-gray-400 mt-1">
-              Statistik status appointment dalam 7 hari terakhir
+              Jumlah pemesanan treatment bulan ini
             </p>
           </div>
 
           <div className="grid grid-cols-2 gap-4 mt-6">
             <div>
-              <p className="text-xs text-gray-400">Total Pasien</p>
+              <div className="flex items-center gap-2">
+                <Sparkles size={16} className="text-pink-500" />
+                <p className="text-xs text-gray-400">Top Treatment</p>
+              </div>
               <h4 className="text-xl font-bold text-[#344767] mt-1">
-                1,240
+                Facial Glow
               </h4>
             </div>
 
             <div>
-              <p className="text-xs text-gray-400">Janji Temu Hari Ini</p>
-              <h4 className="text-xl font-bold text-[#344767] mt-1">58</h4>
+              <div className="flex items-center gap-2">
+                <TrendingUp size={16} className="text-green-500" />
+                <p className="text-xs text-gray-400">Booking</p>
+              </div>
+              <h4 className="text-xl font-bold text-[#344767] mt-1">120</h4>
             </div>
 
             <div>
-              <p className="text-xs text-gray-400">Tingkat Kehadiran</p>
-              <h4 className="text-xl font-bold text-green-500 mt-1">92%</h4>
+              <div className="flex items-center gap-2">
+                <Star size={16} className="text-yellow-500" />
+                <p className="text-xs text-gray-400">Rating</p>
+              </div>
+              <h4 className="text-xl font-bold text-green-500 mt-1">4.9</h4>
             </div>
 
             <div>
-              <p className="text-xs text-gray-400">Pasien Baru Bulan Ini</p>
+              <div className="flex items-center gap-2">
+                <Users size={16} className="text-purple-500" />
+                <p className="text-xs text-gray-400">Customer Baru</p>
+              </div>
               <h4 className="text-xl font-bold text-pink-500 mt-1">86</h4>
             </div>
           </div>
         </div>
 
         {/* VISIT TREND */}
-        <div className="col-span-2 bg-white rounded-2xl p-6 shadow-sm">
+        <div className="xl:col-span-2 bg-white rounded-2xl p-6 shadow-sm">
           <div className="flex items-start justify-between">
             <div>
               <h3 className="font-bold text-[#344767] text-lg">
@@ -215,7 +246,6 @@ export default function Dashboard() {
 
             <div className="text-right">
               <p className="text-xs text-gray-400">Total Appointment</p>
-
               <h4 className="text-2xl font-bold text-[#344767]">12,480</h4>
             </div>
           </div>
@@ -289,6 +319,33 @@ export default function Dashboard() {
                   <span>Nov</span>
                   <span>Des</span>
                 </div>
+              </div>
+            </div>
+          </div>
+
+          {/* BOTTOM INFO */}
+          <div className="grid grid-cols-3 gap-4 mt-5">
+            <div className="flex items-center gap-3">
+              <CheckCircle size={18} className="text-green-500" />
+              <div>
+                <p className="text-xs text-gray-400">Completed</p>
+                <h4 className="font-bold text-[#344767]">320</h4>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <Clock size={18} className="text-yellow-500" />
+              <div>
+                <p className="text-xs text-gray-400">Scheduled</p>
+                <h4 className="font-bold text-[#344767]">180</h4>
+              </div>
+            </div>
+
+            <div className="flex items-center gap-3">
+              <XCircle size={18} className="text-red-500" />
+              <div>
+                <p className="text-xs text-gray-400">Cancelled</p>
+                <h4 className="font-bold text-[#344767]">42</h4>
               </div>
             </div>
           </div>

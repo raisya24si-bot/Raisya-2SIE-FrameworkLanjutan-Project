@@ -1,4 +1,4 @@
-import { useState } from "react";
+import { useState, useEffect } from "react";
 import {
   Search,
   ReceiptText,
@@ -23,6 +23,10 @@ import {
 export default function Transactions() {
   const [search, setSearch] = useState("");
   const [statusFilter, setStatusFilter] = useState("All");
+
+  useEffect(() => {
+  document.title = "GlowCare Clinic - Transactions";
+}, []);
 
   const filteredTransactions = transactions.filter((item) => {
     const matchSearch = item.customerName
@@ -97,7 +101,7 @@ export default function Transactions() {
                 <SelectValue placeholder="Filter Status" />
               </SelectTrigger>
 
-              <SelectContent>
+              <SelectContent className="w-[190px] bg-white">
                 <SelectGroup>
                   <SelectItem value="All">All Status</SelectItem>
                   <SelectItem value="Paid">Paid</SelectItem>
