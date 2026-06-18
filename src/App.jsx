@@ -20,6 +20,7 @@ const Error400 = React.lazy(() => import("./pages/Error400"));
 const Error401 = React.lazy(() => import("./pages/Error401"));
 const Error403 = React.lazy(() => import("./pages/Error403"));
 const NotFound = React.lazy(() => import("./pages/NotFound"));
+const Users = React.lazy(() => import("./pages/Users"));
 
 const Login = React.lazy(() => import("./pages/auth/Login"));
 const Register = React.lazy(() => import("./pages/auth/Register"));
@@ -60,6 +61,8 @@ function App() {
             path="/customers/:id"
             element={<CustomerDetail />}
           />
+
+          <Route path="/users" element={<Users />} />
 
           <Route path="/components" element={<Components />} />
 
