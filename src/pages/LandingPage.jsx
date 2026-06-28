@@ -239,7 +239,7 @@ export default function LandingPage() {
       </section>
 
       <footer className="border-t border-gray-100 bg-white px-6 pb-8 pt-10 text-center text-sm text-[#8392ab] lg:px-8">
-        <p>© 2026 GlowCare Clinic. Guest landing page integrated with CRM system.</p>
+        <p>©2026 GlowCare Clinic. Guest landing page integrated with CRM system.</p>
       </footer>
     </main>
   );
