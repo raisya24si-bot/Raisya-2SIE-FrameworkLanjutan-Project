@@ -12,6 +12,7 @@ import AuthLayout from "./layouts/AuthLayout";
 import Loading from "./components/Loading";
 
 // Lazy Pages
+const LandingPage = lazy(() => import("./pages/LandingPage"));
 const Dashboard = lazy(() => import("./pages/Dashboard"));
 const Treatments = lazy(() => import("./pages/Treatments"));
 const Customers = lazy(() => import("./pages/Customers"));
@@ -36,10 +37,11 @@ ReactDOM.createRoot(document.getElementById("root")).render(
     <BrowserRouter>
       <Suspense fallback={<Loading />}>
         <Routes>
+          <Route path="/" element={<LandingPage />} />
 
           {/* MAIN LAYOUT */}
           <Route element={<MainLayout />}>
-            <Route path="/" element={<Dashboard />} />
+            <Route path="/dashboard" element={<Dashboard />} />
 
             <Route path="/treatments" element={<Treatments />} />
             <Route path="/treatments/:id" element={<TreatmentDetail />} /> 
