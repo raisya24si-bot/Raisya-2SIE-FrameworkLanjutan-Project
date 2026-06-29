@@ -1,8 +1,7 @@
 import { useEffect, useState } from "react";
 import { Sparkles } from "lucide-react";
 
-import MemberTreatmentCard from "@/components/member/MemberTreatmentCard";
-
+import TreatmentCard from "@/components/member/TreatmentCard";
 import SearchBar from "@/components/ui/SearchBar";
 import SoftCard from "@/components/ui/SoftCard";
 import SoftButton from "@/components/ui/SoftButton";
@@ -113,7 +112,7 @@ export default function MemberTreatments() {
 
       <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-3">
         {filteredTreatments.map((item, index) => (
-          <MemberTreatmentCard key={index} {...item} />
+          <TreatmentCard key={index} {...item} />
         ))}
       </div>
 
