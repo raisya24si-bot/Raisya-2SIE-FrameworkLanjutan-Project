@@ -1,7 +1,12 @@
 import { useEffect, useState } from "react";
-import { Search, Trash2, Pencil, X, UserPlus } from "lucide-react";
-import PageHeader from "../components/PageHeader";
+import { Search, Trash2, Pencil, X, UserPlus, UserRound } from "lucide-react";
 import { supabase } from "../lib/supabaseClient";
+
+import SoftCard from "@/components/ui/SoftCard";
+import SoftButton from "@/components/ui/SoftButton";
+import SoftBadge from "@/components/ui/SoftBadge";
+import SoftIconBox from "@/components/ui/SoftIconBox";
+import SoftInput from "@/components/ui/SoftInput";
 
 export default function Users() {
   const [users, setUsers] = useState([]);
@@ -23,7 +28,7 @@ export default function Users() {
   };
 
   useEffect(() => {
-    document.title = "GlowCare Clinic - Users";
+    document.title = "GlowCare Clinic - Staff";
     getUsers();
   }, []);
 
@@ -45,7 +50,12 @@ export default function Users() {
         .eq("id", editId);
     } else {
       await supabase.from("users").insert([
-        { full_name: fullName, email, password, role: "admin" },
+        {
+          full_name: fullName,
+          email,
+          password,
+          role: "admin",
+        },
       ]);
     }
 
@@ -70,186 +80,185 @@ export default function Users() {
 
   const filteredUsers = users.filter(
     (item) =>
-      item.full_name.toLowerCase().includes(search.toLowerCase()) ||
-      item.email.toLowerCase().includes(search.toLowerCase())
+      item.full_name?.toLowerCase().includes(search.toLowerCase()) ||
+      item.email?.toLowerCase().includes(search.toLowerCase())
   );
 
   return (
-    <div className="space-y-6">
-      <PageHeader
-        title="Users"
-        subtitle="Kelola data user admin GlowCare Clinic dari Supabase"
-      />
+    <SoftCard className="p-6">
+      <div className="mb-5 flex flex-col gap-4 lg:flex-row lg:items-center lg:justify-between">
+        <div>
+          <h3 className="text-lg font-bold text-[#344767]">
+            Staff/Admin Table
+          </h3>
 
-      <div className="bg-white rounded-[28px] p-6 shadow-sm">
-        {/* TOP BAR */}
-        <div className="flex flex-col lg:flex-row lg:items-center lg:justify-between gap-4 mb-6">
+          <p className="mt-1 text-sm font-semibold text-[#8392ab]">
+            Kelola akun admin dan staff GlowCare Clinic dari Supabase
+          </p>
+        </div>
+
+        <div className="flex flex-col gap-3 md:flex-row md:items-center">
           <div className="relative">
             <Search
-              size={18}
-              className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+              size={16}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8392ab]"
             />
 
             <input
               type="text"
-              placeholder="Search user..."
+              placeholder="Search staff..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
-              className="w-full md:w-[320px] h-[48px] pl-11 pr-5 rounded-2xl border border-[#e9ecef] bg-white text-sm outline-none transition focus:border-pink-400 focus:ring-4 focus:ring-pink-100"
+              className="h-10 w-full rounded-xl border border-[#e9ecef] bg-white pl-10 pr-3 text-sm text-[#344767] outline-none placeholder:text-[#8392ab] focus:border-[#ff0080] md:w-[240px]"
             />
           </div>
 
-          <button
+          <SoftButton
+            size="sm"
+            icon={<UserPlus size={15} />}
             onClick={() => {
               resetForm();
               setShowForm(true);
             }}
-            className="h-[48px] px-5 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 text-white text-sm font-semibold shadow-lg hover:scale-[1.02] transition flex items-center justify-center gap-2"
           >
-            <UserPlus size={17} />
-            + Add User
-          </button>
+            Add Staff
+          </SoftButton>
         </div>
-
-        {/* FORM */}
-        {showForm && (
-          <form
-            onSubmit={handleSubmit}
-            className="grid grid-cols-1 md:grid-cols-4 gap-4 mb-8 p-5 rounded-[24px] bg-[#f8f9fa]"
-          >
-            <input
-              type="text"
-              placeholder="Full name"
-              value={fullName}
-              onChange={(e) => setFullName(e.target.value)}
-              required
-              className="h-[48px] px-4 rounded-2xl border border-[#e9ecef] outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100"
-            />
-
-            <input
-              type="email"
-              placeholder="Email"
-              value={email}
-              onChange={(e) => setEmail(e.target.value)}
-              required
-              className="h-[48px] px-4 rounded-2xl border border-[#e9ecef] outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100"
-            />
-
-            <input
-              type="text"
-              placeholder="Password"
-              value={password}
-              onChange={(e) => setPassword(e.target.value)}
-              required
-              className="h-[48px] px-4 rounded-2xl border border-[#e9ecef] outline-none focus:border-pink-400 focus:ring-4 focus:ring-pink-100"
-            />
-
-            <div className="flex gap-2">
-              <button
-                type="submit"
-                className="h-[48px] px-5 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 text-white text-sm font-semibold shadow-lg hover:scale-[1.02] transition"
-              >
-                {editId ? "Update" : "Tambah"}
-              </button>
-
-              <button
-                type="button"
-                onClick={resetForm}
-                className="h-[48px] px-4 rounded-2xl border bg-white text-gray-500 hover:bg-gray-100"
-              >
-                <X size={18} />
-              </button>
-            </div>
-          </form>
-        )}
-
-        {/* TABLE */}
-        <div className="overflow-x-auto">
-          <table className="w-full min-w-[900px]">
-            <thead>
-              <tr className="border-b border-[#f1f3f5]">
-                <th className="text-left text-xs font-bold tracking-wider text-gray-400 uppercase px-4 pb-4">
-                  User
-                </th>
-                <th className="text-left text-xs font-bold tracking-wider text-gray-400 uppercase px-4 pb-4">
-                  Email
-                </th>
-                <th className="text-left text-xs font-bold tracking-wider text-gray-400 uppercase px-4 pb-4">
-                  Role
-                </th>
-                <th className="text-left text-xs font-bold tracking-wider text-gray-400 uppercase px-4 pb-4">
-                  Action
-                </th>
-              </tr>
-            </thead>
-
-            <tbody>
-              {filteredUsers.map((item) => (
-                <tr
-                  key={item.id}
-                  className="border-b border-[#f8f9fa] hover:bg-[#f8f9fa] transition"
-                >
-                  <td className="px-4 py-5">
-                    <div className="flex items-center gap-4">
-                      <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center text-white font-bold shadow-md">
-                        {item.full_name.charAt(0).toUpperCase()}
-                      </div>
-
-                      <div>
-                        <h3 className="font-semibold text-[#344767]">
-                          {item.full_name}
-                        </h3>
-                        <p className="text-xs text-gray-400 mt-1">
-                          User GlowCare
-                        </p>
-                      </div>
-                    </div>
-                  </td>
-
-                  <td className="px-4 py-5 text-sm text-gray-500">
-                    {item.email}
-                  </td>
-
-                  <td className="px-4 py-5">
-                    <span className="px-3 py-1 rounded-xl text-xs font-bold bg-pink-100 text-pink-600">
-                      {item.role}
-                    </span>
-                  </td>
-
-                  <td className="px-4 py-5">
-                    <div className="flex gap-2">
-                      <button
-                        onClick={() => handleEdit(item)}
-                        className="p-2 rounded-xl bg-yellow-100 text-yellow-600 hover:bg-yellow-200"
-                      >
-                        <Pencil size={16} />
-                      </button>
-
-                      <button
-                        onClick={() => handleDelete(item.id)}
-                        className="p-2 rounded-xl bg-red-100 text-red-600 hover:bg-red-200"
-                      >
-                        <Trash2 size={16} />
-                      </button>
-                    </div>
-                  </td>
-                </tr>
-              ))}
-            </tbody>
-          </table>
-        </div>
-
-        {filteredUsers.length === 0 && (
-          <div className="py-16 text-center">
-            <h3 className="font-bold text-[#344767] text-lg">
-              User tidak ditemukan
-            </h3>
-            <p className="text-gray-400 mt-2 text-sm">
-              Data user belum ada atau keyword tidak cocok.
-            </p>
-          </div>
-        )}
       </div>
-    </div>
+
+      {showForm && (
+        <form
+          onSubmit={handleSubmit}
+          className="mb-6 grid grid-cols-1 gap-4 rounded-2xl bg-[#f8f9fa] p-5 md:grid-cols-4"
+        >
+          <SoftInput
+            placeholder="Full name"
+            value={fullName}
+            onChange={(e) => setFullName(e.target.value)}
+            required
+          />
+
+          <SoftInput
+            type="email"
+            placeholder="Email"
+            value={email}
+            onChange={(e) => setEmail(e.target.value)}
+            required
+          />
+
+          <SoftInput
+            type="text"
+            placeholder="Password"
+            value={password}
+            onChange={(e) => setPassword(e.target.value)}
+            required
+          />
+
+          <div className="flex gap-2">
+            <SoftButton type="submit" size="sm" className="h-10">
+              {editId ? "Update" : "Tambah"}
+            </SoftButton>
+
+            <button
+              type="button"
+              onClick={resetForm}
+              className="flex h-10 w-10 items-center justify-center rounded-xl border border-[#e9ecef] bg-white text-[#8392ab] transition hover:bg-[#f8f9fa] hover:text-[#344767]"
+            >
+              <X size={17} />
+            </button>
+          </div>
+        </form>
+      )}
+
+      <div className="overflow-x-auto">
+        <table className="w-full min-w-[850px] text-left">
+          <thead>
+            <tr className="border-b border-[#f0f2f5]">
+              <th className="px-2 py-3 text-xs font-bold uppercase text-[#8392ab]">
+                Staff
+              </th>
+              <th className="px-2 py-3 text-xs font-bold uppercase text-[#8392ab]">
+                Email
+              </th>
+              <th className="px-2 py-3 text-xs font-bold uppercase text-[#8392ab]">
+                Role
+              </th>
+              <th className="px-2 py-3 text-xs font-bold uppercase text-[#8392ab]">
+                Action
+              </th>
+            </tr>
+          </thead>
+
+          <tbody>
+            {filteredUsers.map((item) => (
+              <tr
+                key={item.id}
+                className="border-b border-[#f0f2f5] last:border-b-0"
+              >
+                <td className="px-2 py-4">
+                  <div className="flex items-center gap-3">
+                    <SoftIconBox size="md">
+                      {item.full_name ? (
+                        <span className="text-sm font-bold">
+                          {item.full_name.charAt(0).toUpperCase()}
+                        </span>
+                      ) : (
+                        <UserRound size={16} />
+                      )}
+                    </SoftIconBox>
+
+                    <div>
+                      <h3 className="text-sm font-bold text-[#344767]">
+                        {item.full_name}
+                      </h3>
+                      <p className="mt-1 text-xs font-semibold text-[#8392ab]">
+                        GlowCare Staff
+                      </p>
+                    </div>
+                  </div>
+                </td>
+
+                <td className="px-2 py-4 text-sm font-semibold text-[#67748e]">
+                  {item.email}
+                </td>
+
+                <td className="px-2 py-4">
+                  <SoftBadge color="primary">{item.role}</SoftBadge>
+                </td>
+
+                <td className="px-2 py-4">
+                  <div className="flex gap-2">
+                    <button
+                      onClick={() => handleEdit(item)}
+                      className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#fff7e6] text-[#fbcf33] transition hover:bg-[#fff1cc]"
+                    >
+                      <Pencil size={15} />
+                    </button>
+
+                    <button
+                      onClick={() => handleDelete(item.id)}
+                      className="flex h-9 w-9 items-center justify-center rounded-xl bg-[#ffe1e1] text-[#ea0606] transition hover:bg-[#ffd2d2]"
+                    >
+                      <Trash2 size={15} />
+                    </button>
+                  </div>
+                </td>
+              </tr>
+            ))}
+          </tbody>
+        </table>
+      </div>
+
+      {filteredUsers.length === 0 && (
+        <div className="py-14 text-center">
+          <h3 className="text-lg font-bold text-[#344767]">
+            Staff tidak ditemukan
+          </h3>
+          <p className="mt-2 text-sm font-semibold text-[#8392ab]">
+            Data staff belum ada atau keyword tidak cocok.
+          </p>
+        </div>
+      )}
+    </SoftCard>
   );
 }

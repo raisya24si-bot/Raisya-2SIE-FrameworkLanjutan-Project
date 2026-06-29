@@ -1,36 +1,27 @@
 import { useEffect } from "react";
-
 import {
-  Wallet,
-  Users,
   Calendar,
+  CreditCard,
   Sparkles,
-  Info,
-  TrendingUp,
-  Star,
+  Users,
+  Wallet,
+  Bell,
   CheckCircle,
-  Clock,
-  XCircle,
+  ShoppingCart,
+  KeyRound,
+  FileText,
 } from "lucide-react";
-
-import {
-  Alert,
-  AlertAction,
-  AlertDescription,
-  AlertTitle,
-} from "@/components/ui/alert";
-
-import { Button } from "@/components/ui/button";
+import SoftIconBox from "@/components/ui/SoftIconBox";
 
 const stats = [
   {
     title: "Today's Revenue",
-    value: "$3,240",
+    value: "Rp 3,240K",
     growth: "+12%",
     icon: <Wallet size={18} />,
   },
   {
-    title: "Customers",
+    title: "Today's Customers",
     value: "1,240",
     growth: "+8%",
     icon: <Users size={18} />,
@@ -49,12 +40,43 @@ const stats = [
   },
 ];
 
-const topTreatments = [
-  { name: "Facial Glow", total: 120, height: 150 },
-  { name: "Acne", total: 95, height: 120 },
-  { name: "Peeling", total: 70, height: 90 },
-  { name: "Laser", total: 55, height: 65 },
-  { name: "Brightening", total: 80, height: 105 },
+const clinicActivities = [
+  {
+    title: "Aulia Putri selesai Facial Glow",
+    time: "09 JUN 7:20 PM",
+    icon: <Bell size={16} />,
+    color: "text-[#82d616]",
+  },
+  {
+    title: "Booking baru untuk Acne Treatment",
+    time: "08 JUN 12:20 PM",
+    icon: <CheckCircle size={16} />,
+    color: "text-[#ff0080]",
+  },
+  {
+    title: "Penjualan skincare Glow Serum",
+    time: "04 JUN 3:10 PM",
+    icon: <ShoppingCart size={16} />,
+    color: "text-[#21d4fd]",
+  },
+  {
+    title: "Transaksi QRIS berhasil diproses",
+    time: "02 JUN 2:45 PM",
+    icon: <CreditCard size={16} />,
+    color: "text-[#fbcf33]",
+  },
+  {
+    title: "Treatment Laser Face dijadwalkan",
+    time: "18 MAY 1:30 PM",
+    icon: <KeyRound size={16} />,
+    color: "text-[#cb0c9f]",
+  },
+  {
+    title: "Laporan bulanan klinik diperbarui",
+    time: "14 MAY 3:30 PM",
+    icon: <FileText size={16} />,
+    color: "text-[#344767]",
+  },
 ];
 
 export default function Dashboard() {
@@ -63,204 +85,146 @@ export default function Dashboard() {
   }, []);
 
   return (
-    <div className="space-y-6">
-      {/* ALERT */}
-      <Alert className="bg-pink-50 border-pink-200 text-[#344767] rounded-2xl shadow-sm">
-        <Info className="h-5 w-5 text-pink-500" />
-
-        <AlertTitle className="font-bold text-[#344767]">
-          Informasi Appointment Hari Ini
-        </AlertTitle>
-
-        <AlertDescription className="text-gray-500">
-          Terdapat 58 janji temu hari ini. Pastikan data customer dan jadwal
-          treatment sudah dikonfirmasi sebelum pelayanan dimulai.
-        </AlertDescription>
-
-        <AlertAction>
-          <Button
-            variant="outline"
-            className="rounded-xl border-pink-300 text-pink-600 hover:bg-pink-100"
-          >
-            Lihat Jadwal
-          </Button>
-        </AlertAction>
-      </Alert>
-
-      {/* STATS */}
-      <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-4 gap-5">
+    <div className="space-y-5">
+      {/* STAT CARDS */}
+      <div className="grid grid-cols-1 gap-5 md:grid-cols-2 xl:grid-cols-4">
         {stats.map((item, index) => (
           <div
             key={index}
-            className="bg-white rounded-2xl p-5 shadow-sm flex items-center justify-between"
+            className="flex items-center justify-between rounded-2xl bg-white px-5 py-4 shadow-[0_20px_27px_0_rgba(0,0,0,0.05)]"
           >
             <div>
-              <p className="text-gray-400 text-sm">{item.title}</p>
-              <h2 className="text-2xl font-bold text-[#344767] mt-1">
-                {item.value}
-              </h2>
-              <p className="text-green-500 text-sm font-semibold mt-1">
-                {item.growth}
+              <p className="text-sm font-semibold text-[#8392ab]">
+                {item.title}
               </p>
+
+              <div className="mt-1 flex items-baseline gap-2">
+                <h2 className="text-xl font-bold text-[#344767]">
+                  {item.value}
+                </h2>
+                <p className="text-sm font-bold text-[#82d616]">
+                  {item.growth}
+                </p>
+              </div>
             </div>
 
-            <div className="w-12 h-12 rounded-xl bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center text-white shadow-lg">
-              {item.icon}
-            </div>
+            <SoftIconBox size="lg">{item.icon}</SoftIconBox>
           </div>
         ))}
       </div>
 
       {/* HERO */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-5">
-        <div className="bg-white rounded-2xl p-6 shadow-sm xl:col-span-2 flex flex-col md:flex-row items-center justify-between gap-6">
-          <div>
-            <p className="text-gray-400 text-sm">Built by developers</p>
+      <div className="grid grid-cols-1 gap-5 xl:grid-cols-3">
+        <div className="flex flex-col justify-between gap-6 rounded-2xl bg-white p-6 shadow-[0_20px_27px_0_rgba(0,0,0,0.05)] md:flex-row xl:col-span-2">
+          <div className="max-w-md">
+            <p className="text-sm font-semibold text-[#8392ab]">
+              Built for beauty clinic
+            </p>
 
-            <h2 className="text-2xl font-bold text-[#344767] mt-2">
+            <h2 className="mt-2 text-2xl font-bold text-[#344767]">
               GlowCare Dashboard
             </h2>
 
-            <p className="text-gray-400 mt-3 leading-relaxed max-w-md">
+            <p className="mt-3 leading-relaxed text-[#67748e]">
               Sistem dashboard modern untuk mengelola customer, treatment,
               appointment, dan transaksi pada klinik kecantikan GlowCare.
             </p>
 
-            <button className="mt-8 text-sm font-semibold text-[#344767]">
+            <button className="mt-8 text-sm font-bold text-[#344767] transition hover:text-[#ff0080]">
               Read More →
             </button>
           </div>
 
-          <div className="w-full md:w-[300px] h-[190px] rounded-2xl overflow-hidden">
+          <div className="h-[190px] w-full overflow-hidden rounded-2xl md:w-[300px]">
             <img
-              src="/img/foto1.jpg"
-              alt="GlowCare"
-              className="w-full h-full object-cover"
+              src="/img/clinic.jpg"
+              alt="GlowCare Treatment"
+              className="h-full w-full object-cover"
             />
           </div>
         </div>
 
         <div
-          className="rounded-2xl p-6 shadow-sm bg-cover bg-center relative overflow-hidden min-h-[250px]"
-          style={{ backgroundImage: "url('/img/foto1.jpg')" }}
+          className="relative min-h-[250px] overflow-hidden rounded-2xl bg-cover bg-center p-6 shadow-[0_20px_27px_0_rgba(0,0,0,0.05)]"
+          style={{ backgroundImage: "url('/img/doctor.jpg')" }}
         >
-          <div className="absolute inset-0 bg-[#1f2b5b]/70"></div>
+          <div className="absolute inset-0 bg-[#141727]/75" />
 
-          <div className="relative z-10 text-white h-full flex flex-col justify-between">
+          <div className="relative z-10 flex h-full flex-col justify-between text-white">
             <div>
               <h2 className="text-2xl font-bold">Beauty Treatment</h2>
 
-              <p className="mt-3 text-sm leading-relaxed text-gray-200">
+              <p className="mt-3 text-sm leading-relaxed text-white/80">
                 GlowCare memberikan pengalaman treatment wajah dan skincare
                 premium untuk setiap customer.
               </p>
             </div>
 
-            <button className="text-sm font-semibold">Read More →</button>
+            <button className="text-sm font-bold">Read More →</button>
           </div>
         </div>
       </div>
 
-      {/* CHART AREA */}
-      <div className="grid grid-cols-1 xl:grid-cols-3 gap-5">
-        {/* TOP TREATMENT */}
-        <div className="bg-white rounded-2xl p-6 shadow-sm">
-          <div className="bg-[#1f2b5b] rounded-2xl h-[230px] px-6 py-5 flex items-end justify-between">
-            {topTreatments.map((item, index) => (
-              <div key={index} className="flex flex-col items-center gap-2">
-                <span className="text-white text-xs font-semibold">
-                  {item.total}
-                </span>
+      {/* CHART + TIMELINE AREA */}
+      <div className="grid grid-cols-1 gap-5 xl:grid-cols-3">
+        {/* CLINIC ACTIVITY TIMELINE */}
+        <div className="rounded-2xl bg-white p-6 shadow-[0_20px_27px_0_rgba(0,0,0,0.05)]">
+          <h3 className="text-lg font-bold text-[#344767]">
+            Clinic Activity
+          </h3>
 
+          <p className="mt-1 text-sm font-semibold text-[#67748e]">
+            <span className="font-bold text-[#82d616]">↑ 24%</span> this month
+          </p>
+
+          <div className="relative mt-8 space-y-6">
+            <div className="absolute left-[9px] top-2 h-[calc(100%-20px)] w-px bg-[#e9ecef]" />
+
+            {clinicActivities.map((item, index) => (
+              <div key={index} className="relative flex gap-5">
                 <div
-                  className="w-5 rounded-full bg-gradient-to-t from-pink-500 to-purple-400"
-                  style={{ height: `${item.height}px` }}
-                ></div>
+                  className={`relative z-10 flex h-5 w-5 items-center justify-center bg-white ${item.color}`}
+                >
+                  {item.icon}
+                </div>
 
-                <span className="text-white text-[10px] text-center">
-                  {item.name}
-                </span>
+                <div className="-mt-1">
+                  <h4 className="text-sm font-bold leading-snug text-[#344767]">
+                    {item.title}
+                  </h4>
+                  <p className="mt-1 text-sm font-semibold text-[#8392ab]">
+                    {item.time}
+                  </p>
+                </div>
               </div>
             ))}
           </div>
-
-          <div className="mt-5">
-            <h3 className="font-bold text-[#344767] text-lg">
-              Treatment Terpopuler
-            </h3>
-
-            <p className="text-sm text-gray-400 mt-1">
-              Jumlah pemesanan treatment bulan ini
-            </p>
-          </div>
-
-          <div className="grid grid-cols-2 gap-4 mt-6">
-            <div>
-              <div className="flex items-center gap-2">
-                <Sparkles size={16} className="text-pink-500" />
-                <p className="text-xs text-gray-400">Top Treatment</p>
-              </div>
-              <h4 className="text-xl font-bold text-[#344767] mt-1">
-                Facial Glow
-              </h4>
-            </div>
-
-            <div>
-              <div className="flex items-center gap-2">
-                <TrendingUp size={16} className="text-green-500" />
-                <p className="text-xs text-gray-400">Booking</p>
-              </div>
-              <h4 className="text-xl font-bold text-[#344767] mt-1">120</h4>
-            </div>
-
-            <div>
-              <div className="flex items-center gap-2">
-                <Star size={16} className="text-yellow-500" />
-                <p className="text-xs text-gray-400">Rating</p>
-              </div>
-              <h4 className="text-xl font-bold text-green-500 mt-1">4.9</h4>
-            </div>
-
-            <div>
-              <div className="flex items-center gap-2">
-                <Users size={16} className="text-purple-500" />
-                <p className="text-xs text-gray-400">Customer Baru</p>
-              </div>
-              <h4 className="text-xl font-bold text-pink-500 mt-1">86</h4>
-            </div>
-          </div>
         </div>
 
-        {/* VISIT TREND */}
-        <div className="xl:col-span-2 bg-white rounded-2xl p-6 shadow-sm">
-          <div className="flex items-start justify-between">
-            <div>
-              <h3 className="font-bold text-[#344767] text-lg">
-                Tren Kunjungan Pasien
-              </h3>
+        {/* APPOINTMENT OVERVIEW */}
+        <div className="rounded-2xl bg-white p-6 shadow-[0_20px_27px_0_rgba(0,0,0,0.05)] xl:col-span-2">
+          <div>
+            <h3 className="text-lg font-bold text-[#344767]">
+              Appointment Overview
+            </h3>
 
-              <p className="text-sm text-green-500 mt-1">
-                ↑ 18% lebih ramai dibanding tahun lalu
-              </p>
-            </div>
-
-            <div className="text-right">
-              <p className="text-xs text-gray-400">Total Appointment</p>
-              <h4 className="text-2xl font-bold text-[#344767]">12,480</h4>
-            </div>
+            <p className="mt-1 text-sm font-semibold text-[#67748e]">
+              <span className="font-bold text-[#82d616]">↑ 18%</span> lebih
+              ramai dibanding tahun lalu
+            </p>
           </div>
 
           <div className="mt-8">
             <div className="relative h-[320px]">
-              <div className="absolute inset-0 flex flex-col justify-between">
-                <div className="border-t border-dashed border-gray-200"></div>
-                <div className="border-t border-dashed border-gray-200"></div>
-                <div className="border-t border-dashed border-gray-200"></div>
-                <div className="border-t border-dashed border-gray-200"></div>
-                <div className="border-t border-dashed border-gray-200"></div>
+              <div className="absolute inset-0 flex flex-col justify-between pl-10">
+                <div className="border-t border-dashed border-[#e9ecef]" />
+                <div className="border-t border-dashed border-[#e9ecef]" />
+                <div className="border-t border-dashed border-[#e9ecef]" />
+                <div className="border-t border-dashed border-[#e9ecef]" />
+                <div className="border-t border-dashed border-[#e9ecef]" />
               </div>
 
-              <div className="absolute left-0 top-0 h-full flex flex-col justify-between text-xs text-gray-400">
+              <div className="absolute left-0 top-0 flex h-full flex-col justify-between text-xs font-semibold text-[#8392ab]">
                 <span>500</span>
                 <span>400</span>
                 <span>300</span>
@@ -269,83 +233,40 @@ export default function Dashboard() {
                 <span>0</span>
               </div>
 
-              <div className="ml-10 h-full relative">
+              <div className="relative ml-10 h-full">
                 <svg
-                  className="absolute inset-0 w-full h-full"
+                  className="absolute inset-0 h-full w-full"
                   viewBox="0 0 1000 320"
                   preserveAspectRatio="none"
                 >
                   <path
-                    d="
-                      M0 260
-                      C80 250, 120 170, 180 180
-                      S300 280, 380 130
-                      S500 120, 580 170
-                      S700 240, 780 150
-                      S900 230, 1000 80
-                    "
+                    d="M0 260 C80 250, 120 170, 180 180 S300 280, 380 130 S500 120, 580 170 S700 240, 780 150 S900 230, 1000 80"
                     fill="none"
-                    stroke="#cb0c9f"
-                    strokeWidth="4"
+                    stroke="#ff0080"
                     strokeLinecap="round"
+                    strokeWidth="4"
                   />
 
                   <path
-                    d="
-                      M0 280
-                      C100 240, 160 210, 220 230
-                      S350 300, 430 220
-                      S600 180, 680 240
-                      S850 310, 1000 130
-                    "
+                    d="M0 280 C100 240, 160 210, 220 230 S350 300, 430 220 S600 180, 680 240 S850 310, 1000 130"
                     fill="none"
                     stroke="#344767"
-                    strokeWidth="4"
                     strokeLinecap="round"
+                    strokeWidth="4"
                   />
                 </svg>
 
-                <div className="absolute bottom-0 left-0 right-0 flex justify-between text-xs text-gray-400 pt-4">
-                  <span>Jan</span>
-                  <span>Feb</span>
-                  <span>Mar</span>
+                <div className="absolute bottom-0 left-0 right-0 flex justify-between pt-4 text-xs font-semibold text-[#8392ab]">
                   <span>Apr</span>
-                  <span>Mei</span>
+                  <span>May</span>
                   <span>Jun</span>
                   <span>Jul</span>
-                  <span>Agu</span>
+                  <span>Aug</span>
                   <span>Sep</span>
-                  <span>Okt</span>
+                  <span>Oct</span>
                   <span>Nov</span>
-                  <span>Des</span>
+                  <span>Dec</span>
                 </div>
-              </div>
-            </div>
-          </div>
-
-          {/* BOTTOM INFO */}
-          <div className="grid grid-cols-3 gap-4 mt-5">
-            <div className="flex items-center gap-3">
-              <CheckCircle size={18} className="text-green-500" />
-              <div>
-                <p className="text-xs text-gray-400">Completed</p>
-                <h4 className="font-bold text-[#344767]">320</h4>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <Clock size={18} className="text-yellow-500" />
-              <div>
-                <p className="text-xs text-gray-400">Scheduled</p>
-                <h4 className="font-bold text-[#344767]">180</h4>
-              </div>
-            </div>
-
-            <div className="flex items-center gap-3">
-              <XCircle size={18} className="text-red-500" />
-              <div>
-                <p className="text-xs text-gray-400">Cancelled</p>
-                <h4 className="font-bold text-[#344767]">42</h4>
               </div>
             </div>
           </div>

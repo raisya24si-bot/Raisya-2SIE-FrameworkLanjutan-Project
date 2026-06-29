@@ -1,25 +1,28 @@
 import {
-  LayoutDashboard,
-  Users,
-  Sparkles,
   Calendar,
-  CreditCard,
+  Gift,
+  Home,
   LogOut,
+  Sparkles,
+  UserCircle2,
 } from "lucide-react";
 
 import { Link, NavLink } from "react-router-dom";
-import SoftIconBox from "./ui/SoftIconBox";
+
+import SoftBadge from "@/components/ui/SoftBadge";
+import SoftButton from "@/components/ui/SoftButton";
+import SoftCard from "@/components/ui/SoftCard";
+import SoftIconBox from "@/components/ui/SoftIconBox";
 
 const menus = [
-  { name: "Dashboard", icon: LayoutDashboard, path: "/dashboard" },
-  { name: "Customers", icon: Users, path: "/customers" },
-  { name: "Treatments", icon: Sparkles, path: "/treatments" },
-  { name: "Appointments", icon: Calendar, path: "/appointments" },
-  { name: "Transactions", icon: CreditCard, path: "/transactions" },
-  { name: "Staff", icon: Users, path: "/users" },
+  { name: "Home", icon: Home, path: "/member" },
+  { name: "Treatments", icon: Sparkles, path: "/member/treatments" },
+  { name: "Appointments", icon: Calendar, path: "/member/appointments" },
+  { name: "Promotions", icon: Gift, path: "/member/promotions" },
+  { name: "Profile", icon: UserCircle2, path: "/member/profile" },
 ];
 
-export default function Sidebar() {
+export default function MemberSidebar() {
   return (
     <aside className="fixed left-0 top-0 z-40 h-screen w-[260px] bg-[#f8f9fa] px-4 py-6">
       <div className="mb-6 flex items-center gap-3 border-b border-[#e9ecef] px-4 pb-6">
@@ -29,9 +32,7 @@ export default function Sidebar() {
 
         <div>
           <h1 className="text-sm font-bold text-[#344767]">GlowCare</h1>
-          <p className="text-xs font-semibold text-[#8392ab]">
-            Beauty Clinic
-          </p>
+          <p className="text-xs font-semibold text-[#8392ab]">Member Area</p>
         </div>
       </div>
 
@@ -43,6 +44,7 @@ export default function Sidebar() {
             <NavLink
               key={menu.name}
               to={menu.path}
+              end={menu.path === "/member"}
               className={({ isActive }) =>
                 `group flex items-center gap-3 rounded-xl px-4 py-3 text-sm font-medium transition-all duration-200 ${
                   isActive
@@ -73,13 +75,33 @@ export default function Sidebar() {
         })}
       </nav>
 
-      <Link
-        to="/login"
-        className="absolute bottom-6 left-4 right-4 flex items-center justify-center gap-2 rounded-xl bg-white px-4 py-3 text-sm font-bold text-[#344767] shadow-[0_20px_27px_0_rgba(0,0,0,0.05)] transition-all duration-200 hover:-translate-y-0.5 hover:bg-[linear-gradient(310deg,#7928ca_0%,#ff0080_100%)] hover:text-white hover:shadow-[0_4px_20px_rgba(255,0,128,0.35)]"
-      >
-        <LogOut size={16} />
-        Logout
-      </Link>
+      <div className="absolute bottom-6 left-4 right-4 space-y-4">
+        <SoftCard className="p-4">
+          <p className="text-xs font-bold uppercase text-[#8392ab]">
+            Membership
+          </p>
+
+          <div className="mt-2 flex items-center justify-between">
+            <h3 className="text-sm font-bold text-[#344767]">Gold Member</h3>
+            <SoftBadge color="warning">Gold</SoftBadge>
+          </div>
+
+          <p className="mt-2 text-xs font-semibold text-[#8392ab]">
+            1.250 points
+          </p>
+        </SoftCard>
+
+        <SoftButton
+          size="md"
+          className="w-full"
+          onClick={() => {
+            window.location.href = "/login";
+          }}
+        >
+          <LogOut size={16} />
+          Logout
+        </SoftButton>
+      </div>
     </aside>
   );
 }

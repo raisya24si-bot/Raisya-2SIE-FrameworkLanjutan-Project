@@ -1,36 +1,59 @@
-import { Bell, Search } from "lucide-react";
+import { Bell, Search, Settings, UserCircle2 } from "lucide-react";
+import { useLocation } from "react-router-dom";
+
+const pageTitles = {
+  "/": "Dashboard",
+  "/dashboard": "Dashboard",
+  "/customers": "Customers",
+  "/treatments": "Treatments",
+  "/appointments": "Appointments",
+  "/transactions": "Transactions",
+  "/users": "Users",
+};
 
 export default function Header() {
+  const location = useLocation();
+
+  const title = pageTitles[location.pathname] || "Dashboard";
+
   return (
     <header className="flex items-center justify-between">
-
       <div>
-        <p className="text-sm text-gray-400">
-          Pages / Dashboard
+        <p className="text-sm font-semibold text-[#8392ab]">
+          Pages / {title}
         </p>
 
-        <h1 className="text-[32px] font-bold text-[#344767]">
-          Dashboard
+        <h1 className="mt-1 text-2xl font-bold text-[#344767]">
+          {title}
         </h1>
       </div>
 
       <div className="flex items-center gap-4">
-
         <div className="relative">
           <Search
-            size={18}
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
+            size={16}
+            className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8392ab]"
           />
 
           <input
             type="text"
             placeholder="Type here..."
-            className="bg-white border border-gray-200 rounded-xl pl-11 pr-4 py-3 w-[260px] outline-none"
+            className="h-10 w-[220px] rounded-xl border border-[#e9ecef] bg-white pl-10 pr-3 text-sm text-[#344767] outline-none placeholder:text-[#8392ab] focus:border-[#ff0080]"
           />
         </div>
 
-        <button className="w-11 h-11 rounded-xl bg-white border border-gray-200 flex items-center justify-center">
+        <button className="flex items-center gap-1 text-sm font-semibold text-[#67748e] transition hover:text-[#344767]">
+          <UserCircle2 size={17} />
+          Sign In
+        </button>
+
+        <button className="rounded-lg p-2 text-[#67748e] transition hover:bg-white hover:shadow-sm">
+          <Settings size={18} />
+        </button>
+
+        <button className="relative rounded-lg p-2 text-[#67748e] transition hover:bg-white hover:shadow-sm">
           <Bell size={18} />
+          <span className="absolute right-1 top-1 h-2 w-2 rounded-full bg-red-500" />
         </button>
       </div>
     </header>

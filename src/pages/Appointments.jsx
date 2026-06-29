@@ -1,9 +1,13 @@
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { Search, Calendar, Clock, User, Sparkles } from "lucide-react";
 
 import appointments from "../data/appointments";
-import PageHeader from "../components/PageHeader";
-import { useEffect } from "react";
+
+import SoftCard from "@/components/ui/SoftCard";
+import SoftButton from "@/components/ui/SoftButton";
+import SoftBadge from "@/components/ui/SoftBadge";
+import SoftIconBox from "@/components/ui/SoftIconBox";
+
 import {
   Tabs,
   TabsContent,
@@ -12,16 +16,16 @@ import {
 } from "@/components/ui/tabs";
 
 export default function Appointments() {
+  const [search, setSearch] = useState("");
+
   useEffect(() => {
     document.title = "GlowCare Clinic - Appointments";
   }, []);
-  
-  const [search, setSearch] = useState("");
 
   const getStatusColor = (status) => {
-    if (status === "Confirmed") return "bg-green-100 text-green-700";
-    if (status === "Pending") return "bg-yellow-100 text-yellow-700";
-    return "bg-blue-100 text-blue-700";
+    if (status === "Confirmed") return "success";
+    if (status === "Pending") return "warning";
+    return "info";
   };
 
   const filterData = (status) => {
@@ -37,46 +41,59 @@ export default function Appointments() {
   };
 
   const renderTable = (data) => (
-    <div className="bg-white rounded-[28px] p-6 shadow-sm">
-      <div className="flex flex-col md:flex-row md:items-center md:justify-between gap-4 mb-6">
-        <div className="relative">
-          <Search
-            size={18}
-            className="absolute left-4 top-1/2 -translate-y-1/2 text-gray-400"
-          />
+    <SoftCard className="p-6">
+      <div className="mb-5 flex flex-col gap-4 md:flex-row md:items-center md:justify-between">
+        <div>
+          <h3 className="text-lg font-bold text-[#344767]">
+            Appointments Table
+          </h3>
 
-          <input
-            type="text"
-            placeholder="Search appointment..."
-            value={search}
-            onChange={(e) => setSearch(e.target.value)}
-            className="w-full md:w-[320px] h-[48px] pl-11 pr-5 rounded-2xl border border-[#e9ecef] bg-white text-sm outline-none transition focus:border-pink-400 focus:ring-4 focus:ring-pink-100"
-          />
+          <p className="mt-1 text-sm font-semibold text-[#8392ab]">
+            Jadwal booking treatment pelanggan
+          </p>
         </div>
 
-        <button className="h-[48px] px-5 rounded-2xl bg-gradient-to-r from-pink-500 to-purple-600 text-white text-sm font-semibold shadow-lg hover:scale-[1.02] transition">
-          + Add Appointment
-        </button>
+        <div className="flex flex-col gap-3 md:flex-row md:items-center">
+          <div className="relative">
+            <Search
+              size={16}
+              className="absolute left-3 top-1/2 -translate-y-1/2 text-[#8392ab]"
+            />
+
+            <input
+              type="text"
+              placeholder="Search appointment..."
+              value={search}
+              onChange={(e) => setSearch(e.target.value)}
+              className="h-10 w-full rounded-xl border border-[#e9ecef] bg-white pl-10 pr-3 text-sm text-[#344767] outline-none placeholder:text-[#8392ab] focus:border-[#ff0080] md:w-[240px]"
+            />
+          </div>
+
+          <SoftButton size="sm">Add Appointment</SoftButton>
+        </div>
       </div>
 
       <div className="overflow-x-auto">
-        <table className="w-full min-w-[900px]">
+        <table className="w-full min-w-[900px] text-left">
           <thead>
-            <tr className="border-b border-[#f1f3f5]">
-              <th className="text-left text-xs font-bold tracking-wider text-gray-400 uppercase px-4 pb-4">
+            <tr className="border-b border-[#f0f2f5]">
+              <th className="px-2 py-3 text-xs font-bold uppercase text-[#8392ab]">
                 Customer
               </th>
-              <th className="text-left text-xs font-bold tracking-wider text-gray-400 uppercase px-4 pb-4">
+              <th className="px-2 py-3 text-xs font-bold uppercase text-[#8392ab]">
                 Treatment
               </th>
-              <th className="text-left text-xs font-bold tracking-wider text-gray-400 uppercase px-4 pb-4">
-                Tanggal
+              <th className="px-2 py-3 text-xs font-bold uppercase text-[#8392ab]">
+                Date
               </th>
-              <th className="text-left text-xs font-bold tracking-wider text-gray-400 uppercase px-4 pb-4">
-                Jam
+              <th className="px-2 py-3 text-xs font-bold uppercase text-[#8392ab]">
+                Time
               </th>
-              <th className="text-left text-xs font-bold tracking-wider text-gray-400 uppercase px-4 pb-4">
+              <th className="px-2 py-3 text-xs font-bold uppercase text-[#8392ab]">
                 Status
+              </th>
+              <th className="px-2 py-3 text-xs font-bold uppercase text-[#8392ab]">
+                Action
               </th>
             </tr>
           </thead>
@@ -85,54 +102,57 @@ export default function Appointments() {
             {data.map((item) => (
               <tr
                 key={item.id}
-                className="border-b border-[#f8f9fa] hover:bg-[#f8f9fa] transition"
+                className="border-b border-[#f0f2f5] last:border-b-0"
               >
-                <td className="px-4 py-5">
-                  <div className="flex items-center gap-4">
-                    <div className="w-11 h-11 rounded-2xl bg-gradient-to-br from-pink-500 to-purple-600 flex items-center justify-center text-white shadow-md">
-                      <User size={20} />
-                    </div>
+                <td className="px-2 py-4">
+                  <div className="flex items-center gap-3">
+                    <SoftIconBox size="md">
+                      <User size={16} />
+                    </SoftIconBox>
 
                     <div>
-                      <h3 className="font-semibold text-[#344767]">
+                      <h3 className="text-sm font-bold text-[#344767]">
                         {item.customerName}
                       </h3>
-                      <p className="text-xs text-gray-400 mt-1">
+
+                      <p className="mt-1 text-xs font-semibold text-[#8392ab]">
                         GlowCare Customer
                       </p>
                     </div>
                   </div>
                 </td>
 
-                <td className="px-4 py-5">
-                  <span className="inline-flex items-center gap-2 text-sm font-semibold text-pink-500">
-                    <Sparkles size={16} />
+                <td className="px-2 py-4">
+                  <div className="flex items-center gap-2 text-sm font-bold text-[#ff0080]">
+                    <Sparkles size={15} />
                     {item.treatment}
-                  </span>
+                  </div>
                 </td>
 
-                <td className="px-4 py-5">
-                  <span className="inline-flex items-center gap-2 text-sm text-gray-500">
-                    <Calendar size={16} />
+                <td className="px-2 py-4">
+                  <div className="flex items-center gap-2 text-sm font-semibold text-[#67748e]">
+                    <Calendar size={15} />
                     {item.date}
-                  </span>
+                  </div>
                 </td>
 
-                <td className="px-4 py-5">
-                  <span className="inline-flex items-center gap-2 text-sm text-gray-500">
-                    <Clock size={16} />
+                <td className="px-2 py-4">
+                  <div className="flex items-center gap-2 text-sm font-semibold text-[#67748e]">
+                    <Clock size={15} />
                     {item.time}
-                  </span>
+                  </div>
                 </td>
 
-                <td className="px-4 py-5">
-                  <span
-                    className={`px-3 py-1 rounded-xl text-xs font-bold ${getStatusColor(
-                      item.status
-                    )}`}
-                  >
+                <td className="px-2 py-4">
+                  <SoftBadge color={getStatusColor(item.status)}>
                     {item.status}
-                  </span>
+                  </SoftBadge>
+                </td>
+
+                <td className="px-2 py-4">
+                  <button className="text-xs font-bold text-[#8392ab] hover:text-[#ff0080]">
+                    Edit
+                  </button>
                 </td>
               </tr>
             ))}
@@ -141,47 +161,52 @@ export default function Appointments() {
       </div>
 
       {data.length === 0 && (
-        <div className="py-16 text-center">
-          <h3 className="font-bold text-[#344767] text-lg">
+        <div className="py-14 text-center">
+          <h3 className="text-lg font-bold text-[#344767]">
             Appointment tidak ditemukan
           </h3>
-          <p className="text-gray-400 mt-2 text-sm">
+          <p className="mt-2 text-sm font-semibold text-[#8392ab]">
             Coba gunakan keyword lain.
           </p>
         </div>
       )}
-    </div>
+    </SoftCard>
   );
 
   return (
-    <div className="space-y-6">
-      <PageHeader
-        title="Appointments"
-        subtitle="Jadwal booking treatment pelanggan"
-      />
-
-      <Tabs defaultValue="All" className="w-full flex flex-col gap-6">
-        <TabsList className="bg-pink-50 rounded-2xl p-1 w-fit">
-          <TabsTrigger value="All" className="px-5 rounded-xl">
+    <div className="space-y-5">
+      <Tabs defaultValue="All" className="flex w-full flex-col gap-5">
+        <TabsList className="w-fit rounded-2xl bg-white p-1 shadow-[0_20px_27px_0_rgba(0,0,0,0.05)]">
+          <TabsTrigger
+            value="All"
+            className="rounded-xl px-5 text-sm font-semibold data-[state=active]:bg-[linear-gradient(310deg,#7928ca_0%,#ff0080_100%)] data-[state=active]:text-white"
+          >
             All
           </TabsTrigger>
 
-          <TabsTrigger value="Confirmed" className="px-5 rounded-xl">
+          <TabsTrigger
+            value="Confirmed"
+            className="rounded-xl px-5 text-sm font-semibold data-[state=active]:bg-[linear-gradient(310deg,#7928ca_0%,#ff0080_100%)] data-[state=active]:text-white"
+          >
             Confirmed
           </TabsTrigger>
 
-          <TabsTrigger value="Pending" className="px-5 rounded-xl">
+          <TabsTrigger
+            value="Pending"
+            className="rounded-xl px-5 text-sm font-semibold data-[state=active]:bg-[linear-gradient(310deg,#7928ca_0%,#ff0080_100%)] data-[state=active]:text-white"
+          >
             Pending
           </TabsTrigger>
 
-          <TabsTrigger value="Completed" className="px-5 rounded-xl">
+          <TabsTrigger
+            value="Completed"
+            className="rounded-xl px-5 text-sm font-semibold data-[state=active]:bg-[linear-gradient(310deg,#7928ca_0%,#ff0080_100%)] data-[state=active]:text-white"
+          >
             Completed
           </TabsTrigger>
         </TabsList>
 
-        <TabsContent value="All">
-          {renderTable(filterData("All"))}
-        </TabsContent>
+        <TabsContent value="All">{renderTable(filterData("All"))}</TabsContent>
 
         <TabsContent value="Confirmed">
           {renderTable(filterData("Confirmed"))}
